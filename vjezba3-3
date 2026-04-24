@@ -1,0 +1,50 @@
+<?php
+$rezultat = '';
+
+if (isset($_POST['izracunaj'])) {
+    $ocjene = [(float)$_POST['kol1'], (float)$_POST['kol2']];
+
+    if ($ocjene[0] < 0 || $ocjene[1] < 0) {
+        $rezultat = 'Negativna ocjena!';
+    } else {
+        $prosjek = array_sum($ocjene) / count($ocjene);
+
+        if ($prosjek < 1 || $prosjek > 5) {
+            $rezultat = 'Ocjena mora biti između 1 i 5!';
+        } else {
+            $rezultat = 'Prosjek: ' . round($prosjek, 2) . ' — Konačna ocjena: ' . round($prosjek);
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ocjene kolokvija</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; }
+        input { display: block; margin: 8px 0 16px; padding: 8px; width: 100%; }
+        button { padding: 10px 20px; background: #c0392b; color: white; border: none; cursor: pointer; }
+        button:hover { background: #a93226; }
+        .rezultat { margin-top: 20px; padding: 12px; background: #f0f0f0; border-left: 4px solid #c0392b; }
+    </style>
+</head>
+<body>
+    <h2>Ocjene kolokvija</h2>
+
+    <form method="POST">
+        <label>Ocjena I. kolokvija:</label>
+        <input type="number" name="kol1" step="0.1" min="1" max="5" required>
+
+        <label>Ocjena II. kolokvija:</label>
+        <input type="number" name="kol2" step="0.1" min="1" max="5" required>
+
+        <button type="submit" name="izracunaj">Izračunaj</button>
+    </form>
+
+    <?php if ($rezultat !== ''): ?>
+        <div class="rezultat"><?= $rezultat ?></div>
+    <?php endif; ?>
+</body>
+</html>
