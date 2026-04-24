@@ -1,0 +1,48 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['broj'])) {
+    $_SESSION['broj'] = rand(1, 9);
+}
+
+$poruka = '';
+
+if (isset($_POST['unesenibroj'])) {
+    if ($_POST['unesenibroj'] == $_SESSION['broj']) {
+        $poruka = 'Pogodak, probaj ponovo!';
+    } else {
+        $poruka = 'Krivo, probaj ponovo!';
+    }
+}
+
+if (isset($_POST['nova'])) {
+    $_SESSION['broj'] = rand(1, 9);
+    $poruka = '';
+}
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Igra (pogodi broj)</title>
+</head>
+<body>
+    <h2>Igra (pogodi broj)</h2>
+
+    <form method="POST">
+        <label>Upiši jedan broj od 1 do 9:
+            <input type="number" name="unesenibroj" min="1" max="9">
+        </label>
+        <button type="submit">Provjeri</button>
+    </form>
+
+    <?php if ($poruka != ''): ?>
+        <p><?= $poruka ?></p>
+        <p>Zamišljeni broj je <?= $_SESSION['broj'] ?></p>
+    <?php endif; ?>
+
+    <form method="POST">
+        <button type="submit" name="nova" value="1">Nova igra</button>
+    </form>
+</body>
+</html>
