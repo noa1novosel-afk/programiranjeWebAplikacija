@@ -1,0 +1,30 @@
+<?php
+$brojRijeci = '';
+$tekst = '';
+
+if (isset($_POST['tekst'])) {
+    $tekst = $_POST['tekst'];
+    $brojRijeci = str_word_count($tekst);
+}
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Zadatak str_word_count</title>
+</head>
+<body>
+    <h2>Zadatak str_word_count</h2>
+    <p>U zadataku se traži da se ispiše koliko je riječi u rečenici. Koristite naredbu <code>str_word_count</code></p>
+
+    <form method="POST">
+        <label><strong>Ulazni niz:</strong></label><br>
+        <input type="text" name="tekst" value="<?= htmlspecialchars($tekst) ?>" size="50"><br><br>
+        <button type="submit">Ispiši broj riječi</button>
+    </form>
+
+    <?php if ($brojRijeci !== ''): ?>
+        <p>ulazni niz: <code><?= htmlspecialchars($tekst) ?></code> sadrži <strong><?= $brojRijeci ?></strong> riječi.</p>
+    <?php endif; ?>
+</body>
+</html>
