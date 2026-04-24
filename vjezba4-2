@@ -1,0 +1,32 @@
+<?php
+$dan = (int)date('w'); 
+$sat = (int)date('G');
+$datum = date('d.m.Y');
+$vrijeme = date('H:i');
+
+$praznici = ['01-01','06-01','01-05','30-05','22-06','05-08','15-08','01-11','18-11','25-12','26-12'];
+$danas = date('d-m');
+
+if (in_array($danas, $praznici)) {
+    $status = 'Dućan je zatvoren (državni praznik).';
+} elseif ($dan == 0) {
+    $status = 'Dućan je zatvoren (nedjelja).';
+} elseif ($dan == 6) {
+    $status = ($sat >= 9 && $sat < 14) ? 'Dućan je otvoren.' : 'Dućan je zatvoren.';
+} else {
+    $status = ($sat >= 8 && $sat < 20) ? 'Dućan je otvoren.' : 'Dućan je zatvoren.';
+}
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Radno vrijeme dućana</title>
+</head>
+<body>
+    <h2>Radno vrijeme dućana</h2>
+    <p>Danas: <?= $datum ?>, <?= $vrijeme ?></p>
+    <p><strong><?= $status ?></strong></p>
+    <p>Radno vrijeme: pon-pet 8-20h, sub 9-14h, ned zatvoreno.</p>
+</body>
+</html>
