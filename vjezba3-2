@@ -1,0 +1,46 @@
+<?php
+$rezultat = '';
+
+if (isset($_POST['operacija'])) {
+    $a = (float)$_POST['a'];
+    $b = (float)$_POST['b'];
+    $op = $_POST['operacija'];
+
+    switch ($op) {
+        case '+': $rezultat = $a + $b; break;
+        case '-': $rezultat = $a - $b; break;
+        case '*': $rezultat = $a * $b; break;
+        case '/':
+            if ($b != 0) {
+                $rezultat = $a / $b;
+            } else {
+                $rezultat = 'Dijeljenje s nulom nije moguće!';
+            }
+            break;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator (Switch naredba)</title>
+</head>
+<body>
+    <h2>Kalkulator (Switch naredba)</h2>
+
+    <form method="POST">
+        <label>Upiši prvi broj: <input type="number" name="a" step="any" required></label><br><br>
+        <label>Upiši drugi broj: <input type="number" name="b" step="any" required></label><br><br>
+
+        <?php if ($rezultat !== ''): ?>
+            <p>Rezultat: <?= $rezultat ?></p>
+        <?php endif; ?>
+
+        <button type="submit" name="operacija" value="+">+</button>
+        <button type="submit" name="operacija" value="-">-</button>
+        <button type="submit" name="operacija" value="*">*</button>
+        <button type="submit" name="operacija" value="/">/</button>
+    </form>
+</body>
+</html>
